@@ -25,6 +25,11 @@ const routes = [
   {
     path: '/stocks',
     component: () => import('../views/stocks/Stocks.vue')
+  },
+  {
+    path: '/stocks/add',
+    component: () => import('../views/stocks/AddStock.vue'),
+    name: 'add-stock'
   }
 ]
 

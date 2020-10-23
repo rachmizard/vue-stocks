@@ -1,13 +1,27 @@
 <template>
-  <div class="card">
-    <div class="card-body">
-        This is Portofolio page
+  <div>
+    <div class="row">
+      <app-stock
+        v-for="(stock, index) in stocks"
+        :key="index"
+        :stock="stock"
+      ></app-stock>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import StockVue from '../portofolio/Stock.vue';
+
 export default {
-    
-}
+  components: {
+    appStock: StockVue
+  },
+  computed: {
+    ...mapGetters({
+      stocks: 'stockPortofolio'
+    })
+  }
+};
 </script>

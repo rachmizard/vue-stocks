@@ -7,12 +7,16 @@ const state = {
 const mutations = {
     'SET_STOCKS'(state, stocks) {
         state.stocks = stocks;
+    },
+    'ADD_STOCK'(state, payload) {
+        const data = payload;
+        state.stocks.push(data);
     }
 }
 
 const actions = {
-    buyStock: ({ commit }) => {
-        commit();
+    buyStock: ({ commit }, order) => {
+        commit('BUY_STOCK', order);
     },
     initStocks: ({ commit }) => {
         commit('SET_STOCKS', stocks)

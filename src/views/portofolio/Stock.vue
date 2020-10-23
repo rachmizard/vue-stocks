@@ -3,7 +3,7 @@
     <div class="card" style="width: 18rem">
       <div class="card-body">
         <h5 class="card-title">{{ stock.name }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Price : {{ stock.price }}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Price : {{ stock.price }} | Quantity: {{ stock.quantity }}</h6>
         <div class="form-row align-items-center">
           <div class="col-auto">
             <label class="sr-only" for="inlineFormInputGroup">Quantity</label>
@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="col-auto">
-            <button @click="buyStock" class="btn btn-success mb-2" :disabled="quantity <= 0">Buy</button>
+            <button @click="sellStock" class="btn btn-success mb-2" :disabled="quantity <= 0">Sell</button>
           </div>
         </div>
       </div>
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
   name: "Stock",
   props: ["stock"],
@@ -39,14 +41,16 @@ export default {
     };
   },
   methods: {
-    buyStock() {
-      const order = {
-        stockId: this.stock.id,
-        stockPrice: this.stock.price,
-        quantity: this.quantity,
-      };
-      this.$store.dispatch('buyStock', order)
-      this.quantity = 0;
+    ...mapActions([
+        'sellStock'
+    ]),
+    sellStock() {
+    //   const order = {
+    //     stockId: this.stock.id,
+    //     stockPrice: this.stock.price,
+    //     quantity: this.quantity,
+    //   };
+    //   this.sellStock();
     },
   },
 };
