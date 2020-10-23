@@ -5,6 +5,16 @@ const state = {
 }
 
 const mutations = {
+    'BUY_STOCK'(state, stocks) {
+        const record = state.stocks.find(element => element.id === stocks.stockId);
+        if(record) {
+            if(stocks.quantity >= record.quantity) {
+                alert('Stock limited!')
+            }else {
+                record.quantity -= stocks.quantity
+            }
+        }
+    },
     'SET_STOCKS'(state, stocks) {
         state.stocks = stocks;
     },
@@ -23,6 +33,9 @@ const actions = {
     },
     randomizeStocks: ({ commit }) => {
         commit('RAND_STOCKS')
+    },
+    addStock: ({ commit }, payload) => {
+        commit('ADD_STOCK', payload)
     }
 }
 
