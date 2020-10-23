@@ -1,15 +1,13 @@
 <template>
   <div class="card">
     <div class="card-body">
-        This is Home page
+        This is Portofolio page
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
-  name: 'Home'
+    
 }
 </script>
