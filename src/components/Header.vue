@@ -59,6 +59,11 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
+  data() {
+    return {
+      isDropdownOpen: false
+    }
+  },
   computed: {
     funds() {
       return this.$store.getters.funds

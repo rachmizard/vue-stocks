@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <appHeader/>
+    <appHeader />
     <div class="container-md">
       <div class="row">
-        <div class="col-md-12 mt-5">
-          <router-view/>
+        <div class="col-md-12 mt-3">
+          <transition name="slide" mode="out-int">
+            <router-view />
+          </transition>
         </div>
       </div>
     </div>
@@ -12,20 +14,50 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from "./components/Header.vue";
 
 export default {
   components: {
-    'appHeader': Header
+    appHeader: Header,
   },
   created() {
-    this.$store.dispatch('initStocks')
-  }
-}
+    this.$store.dispatch("initStocks");
+  },
+};
 </script>
 
 <style>
-  body {
-    padding: 50px;
+body {
+  padding: 50px;
+}
+
+.slide-enter-active {
+  animation: slide-in 200ms ease-out forwards;
+}
+
+.slide-leave-active {
+  animation: slide-out 200ms ease-out forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
   }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+}
 </style>

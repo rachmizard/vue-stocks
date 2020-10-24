@@ -14,6 +14,7 @@
           id="inputName"
           v-model="form.name"
           aria-describedby="nameHelp"
+          :class="{danger: $v.form.name.$error}"
         />
         <small
           v-if="$v.form.name.$error"
@@ -30,6 +31,7 @@
           v-model="form.price"
           id="inputPrice"
           aria-describedby="priceHelp"
+          :class="{danger: $v.form.price.$error}"
         />
         <small
           v-if="$v.form.price.$error"
@@ -46,6 +48,7 @@
           v-model="form.quantity"
           id="inputQuantity"
           aria-describedby="quantityHelp"
+          :class="{danger: $v.form.quantity.$error}"
         />
         <small
           v-if="$v.form.quantity.$error"
@@ -62,6 +65,7 @@
           v-model="form.img"
           id="inputImg"
           aria-describedby="imgHelp"
+          :class="{danger: $v.form.img.$error}"
         />
         <small
           v-if="$v.form.img.$error"
@@ -131,3 +135,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .danger {
+    border: 1px solid red;
+  }
+</style>
