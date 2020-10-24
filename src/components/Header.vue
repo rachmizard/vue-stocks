@@ -105,10 +105,11 @@ export default {
         stockPortofolio: this.$store.getters.stockPortofolio,
         stocks: this.$store.getters.stocks
       }
-      this.$http.put('data.json', data).then(() => alert('Successfully saved!'));
+      const path = `data/${this.user.localId}.json`
+      this.$http.put(path, data).then(() => alert('Successfully saved!'));
     },
     loadData() {
-      this.fetchData().then(data => console.log(data));
+      this.fetchData(this.user).then(data => console.log(data));
     },
     logOut() {
       this.revokeCredential().then(() => this.$router.replace('/login'));

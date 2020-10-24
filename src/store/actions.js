@@ -1,7 +1,8 @@
 import Vue from 'vue';
 
-export const loadData = ({ commit }) => {
-    Vue.http.get('data.json')
+export const loadData = ({ commit }, payload) => {
+    const path = `data/${payload.localId}.json`
+    Vue.http.get(path)
     .then(response => response.json())
     .then(data => {
         if(data) {

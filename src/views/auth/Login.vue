@@ -36,7 +36,7 @@
           <router-link to="/register">Register here</router-link>
         </small>
         <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>
@@ -79,7 +79,9 @@ export default {
         .then((res) => {
           this.errorMessages = [];
           this.$store.dispatch("login", res.body);
-          this.$router.replace("/");
+          this.$router.replace("/").then(() => {
+            this.$store.dispatch("loadData", res.body);
+          });
         })
         .catch((err) => {
           if (err.status === 400) {

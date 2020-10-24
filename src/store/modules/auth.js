@@ -19,6 +19,8 @@ const mutations = {
         state.isLoggedIn = false;
         state.credential = null
         state.userAuth = null
+        state.stocks = null
+        state.funds = 0
         localStorage.clear();
     }
 }
