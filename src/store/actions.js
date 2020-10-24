@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 export const loadData = ({ commit }, payload) => {
-    const path = `data/${payload.localId}.json`
+    const path = `data/${payload.localId}.json?auth=${payload.idToken}`
     Vue.http.get(path)
     .then(response => response.json())
     .then(data => {

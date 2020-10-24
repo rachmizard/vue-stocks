@@ -6,7 +6,7 @@
           {{ errorMessage.message }}
         </li>
       </ul>
-      <form @submit.prevent="login">
+      <form @submit.prevent="signUp" autocomplete="off">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
           <input
@@ -32,11 +32,33 @@
             v-model="form.password"
           />
         </div>
+        <div class="form-group">
+          <label for="exampleInputreTypePassword">Re-Password</label>
+          <input
+            type="password"
+            class="form-control"
+            :class="{
+              danger:
+                $v.form.reTypePassword.$error ||
+                form.password !== form.reTypePassword,
+            }"
+            id="exampleInputreTypePassword"
+            v-model="form.reTypePassword"
+          />
+          <small
+            v-if="
+              $v.form.reTypePassword.$touch &&
+              form.password !== form.reTypePassword
+            "
+            class="form-text text-danger"
+            >Re type password doesn't match with your password!</small
+          >
+        </div>
         <small class="form-text text-muted">
-          <router-link to="/register">Register here</router-link>
+          <router-link to="/login">Already have account? Login</router-link>
         </small>
         <div class="mt-3">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Register</button>
         </div>
       </form>
     </div>
@@ -47,12 +69,13 @@
 import { required, email } from "vuelidate/lib/validators";
 
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {
       form: {
         email: "",
         password: "",
+        reTypePassword: "",
       },
       errorMessages: [],
     };
@@ -61,28 +84,25 @@ export default {
     form: {
       email: { required, email },
       password: { required },
+      reTypePassword: { required },
     },
   },
   methods: {
-    async login() {
+    async signUp() {
       this.$v.form.$touch();
       if (this.$v.form.$invalid) return;
       const payload = {
         email: this.form.email,
         password: this.form.password,
-        returnSecureToken: true
       };
       await this.$http
         .post(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAFXOZr_wOfYwbuOiCBOn3lkwfa5OMypu4",
+          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAFXOZr_wOfYwbuOiCBOn3lkwfa5OMypu4",
           payload
         )
-        .then((res) => {
-          this.errorMessages = [];
-          this.$store.dispatch("login", res.body);
-          this.$router.replace("/").then(() => {
-            this.$store.dispatch("loadData", res.body);
-          });
+        .then((signup) => {
+          this.$store.dispatch("signUp", signup.data);
+          this.$router.replace("/");
         })
         .catch((err) => {
           if (err.status === 400) {

@@ -88,6 +88,9 @@ export default {
     },
     user() {
       return this.$store.getters.getUser
+    },
+    userCredential() {
+      return this.$store.getters.getCredential;
     }
   },
   methods: {
@@ -108,11 +111,11 @@ export default {
         stockPortofolio: this.$store.getters.stockPortofolio,
         stocks: this.$store.getters.stocks
       }
-      const path = `data/${this.user.localId}.json`
+      const path = `data/${this.user.localId}.json?auth=${this.userCredential.idToken}`
       this.$http.put(path, data).then(() => alert('Successfully saved!'));
     },
     loadData() {
-      this.fetchData(this.user).then(data => console.log(data));
+      this.fetchData(this.userCredential);
     },
     logOut() {
       this.revokeCredential().then(() => {
