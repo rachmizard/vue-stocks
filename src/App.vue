@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <appHeader/>
-    <div class="container-fluid">
+    <div class="container-md">
       <div class="row">
         <div class="col-md-12 mt-5">
           <router-view/>

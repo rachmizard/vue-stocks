@@ -7,11 +7,13 @@ const state = {
 const mutations = {
     'BUY_STOCK'(state, stocks) {
         const record = state.stocks.find(element => element.id === stocks.stockId);
-        if(record) {
-            if(stocks.quantity >= record.quantity) {
-                alert('Stock limited!')
-            }else {
-                record.quantity -= stocks.quantity
+        if (record) {
+            if (stocks.quantity !== 0) {
+                if (stocks.quantity > record.quantity) {
+                    alert('Stock limited!')
+                } else {
+                    record.quantity -= stocks.quantity
+                }
             }
         }
     },
@@ -21,6 +23,11 @@ const mutations = {
     'ADD_STOCK'(state, payload) {
         const data = payload;
         state.stocks.push(data);
+    },
+    'RAND_STOCKS'(state) {
+        state.stocks.forEach(stock => {
+            stock.price = Math.round(stock.price * (1 + Math.random() - 0.5 ))
+        })
     }
 }
 

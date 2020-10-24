@@ -16,19 +16,40 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-            <router-link to="/" activeClass="active" tag="li">
-                <a class="nav-link" href="#">Home</a>
-            </router-link>
+          <router-link to="/" activeClass="active" tag="li">
+            <a class="nav-link" href="#">Home</a>
+          </router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/stocks" activeClass="active" tag="li">
-                <a class="nav-link" href="#">Stocks</a>
-            </router-link>
+          <router-link to="/stocks" activeClass="active" tag="li">
+            <a class="nav-link" href="#">Stocks</a>
+          </router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/portofolio" activeClass="active" tag="li">
-                <a class="nav-link" href="#">Portofolio</a>
-            </router-link>
+          <router-link to="/portofolio" activeClass="active" tag="li">
+            <a class="nav-link" href="#">Portofolio</a>
+          </router-link>
+        </li>
+      </ul>
+      <strong class="navbar-text navbar-right">Funds: {{ funds | currency }}</strong>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link" @click="endDay" href="#">End Day</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >Save & Load</a
+          >
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Save</a>
+            <a class="dropdown-item" href="#">Load</a>
+          </div>
         </li>
       </ul>
     </div>
@@ -36,5 +57,20 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from 'vuex';
+export default {
+  computed: {
+    funds() {
+      return this.$store.getters.funds
+    }
+  },
+  methods: {
+    ...mapActions([
+      'randomizeStocks'
+    ]),
+    endDay() {
+      this.randomizeStocks();
+    }
+  }
+};
 </script>
