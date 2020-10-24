@@ -26,9 +26,9 @@ export default {
   },
   created() {
     this.initStocks()
-    setInterval(() => {
-      this.randomizeStocks()
-    }, 8000);
+    // setInterval(() => {
+    //   this.randomizeStocks()
+    // }, 8000);
   },
 };
 </script>

@@ -14,7 +14,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <ul v-if="isLoggedIn" class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/" activeClass="active" tag="li">
             <a class="nav-link" href="#">Home</a>
@@ -31,8 +31,8 @@
           </router-link>
         </li>
       </ul>
-      <strong class="navbar-text navbar-right">Funds: {{ funds | currency }}</strong>
-      <ul class="nav justify-content-end">
+      <strong v-if="isLoggedIn" class="navbar-text navbar-right">Funds: {{ funds | currency }}</strong>
+      <ul v-if="isLoggedIn" class="nav justify-content-end">
         <li class="nav-item">
           <a class="nav-link" @click="endDay" href="#">End Day</a>
         </li>
@@ -52,6 +52,20 @@
             <a class="dropdown-item" href="#" @click="loadData">Load</a>
           </div>
         </li>
+        <li v-if="isLoggedIn" class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >{{ user ? user.email : `` }}</a
+          >
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#" @click="logOut">Logout</a>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -66,14 +80,21 @@ export default {
     }
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    },
     funds() {
       return this.$store.getters.funds
+    },
+    user() {
+      return this.$store.getters.getUser
     }
   },
   methods: {
     ...mapActions({
       randomizeStocks: 'randomizeStocks',
-      fetchData: 'loadData'
+      fetchData: 'loadData',
+      revokeCredential: 'logOut'
     }),
     endDay() {
       this.randomizeStocks();
@@ -88,6 +109,9 @@ export default {
     },
     loadData() {
       this.fetchData().then(data => console.log(data));
+    },
+    logOut() {
+      this.revokeCredential().then(() => this.$router.replace('/login'));
     }
   }
 };
