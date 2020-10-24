@@ -4,7 +4,7 @@
     <div class="container-md">
       <div class="row">
         <div class="col-md-12 mt-3">
-          <transition name="slide" mode="out-int">
+          <transition name="slide">
             <router-view />
           </transition>
         </div>

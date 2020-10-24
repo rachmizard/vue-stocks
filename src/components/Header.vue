@@ -44,10 +44,11 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false"
+            @click="isDropdownOpen = !isDropdownOpen"
             >Save & Load</a
           >
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Save</a>
+          <div class="dropdown-menu" :class="{show: isDropdownOpen}">
+            <a class="dropdown-item" href="#" @click="saveData">Save</a>
             <a class="dropdown-item" href="#">Load</a>
           </div>
         </li>
@@ -75,6 +76,14 @@ export default {
     ]),
     endDay() {
       this.randomizeStocks();
+    },
+    saveData() {
+      const data = {
+        funds: this.$store.getters.funds,
+        stockPortofolio: this.$store.getters.stockPortofolio,
+        stocks: this.$store.getters.stocks
+      }
+      this.$http.put('data.json', data);
     }
   }
 };
