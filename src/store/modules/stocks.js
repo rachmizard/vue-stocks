@@ -1,8 +1,12 @@
 import stocks from '../../data/stocks'
 
-const state = {
-    stocks: []
+const getDefaultState = () => {
+    return {
+        stocks: []
+    }
 }
+
+const state = getDefaultState()
 
 const mutations = {
     'BUY_STOCK'(state, stocks) {
@@ -28,6 +32,9 @@ const mutations = {
         state.stocks.forEach(stock => {
             stock.price = Math.round(stock.price * (1 + Math.random() - 0.5))
         })
+    },
+    'RESET_STOCK'(state) {
+        Object.assign(state, getDefaultState())
     }
 }
 
@@ -43,6 +50,9 @@ const actions = {
     },
     addStock: ({ commit }, payload) => {
         commit('ADD_STOCK', payload)
+    },
+    resetStock: ({ commit }) => {
+        commit('RESET_STOCK')
     }
 }
 

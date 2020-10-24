@@ -94,7 +94,10 @@ export default {
     ...mapActions({
       randomizeStocks: 'randomizeStocks',
       fetchData: 'loadData',
-      revokeCredential: 'logOut'
+      revokeCredential: 'logOut',
+      resetStock: 'resetStock',
+      resetPortofolio: 'resetPortofolio',
+      resetAuth: 'resetAuth'
     }),
     endDay() {
       this.randomizeStocks();
@@ -112,7 +115,13 @@ export default {
       this.fetchData(this.user).then(data => console.log(data));
     },
     logOut() {
-      this.revokeCredential().then(() => this.$router.replace('/login'));
+      this.revokeCredential().then(() => {
+        this.$router.replace('/login').then(() => {
+          this.resetAuth();
+          this.resetStock();
+          this.resetPortofolio();
+        })
+      });
     }
   }
 };

@@ -1,8 +1,13 @@
-const state = {
-    isLoggedIn: false,
-    userAuth: null,
-    credential: null
+
+const getDefaultState = () => {
+    return {
+        isLoggedIn: false,
+        userAuth: null,
+        credential: null
+    }
 }
+
+const state = getDefaultState()
 
 const mutations = {
     'LOGIN'(state, credential) {
@@ -15,13 +20,8 @@ const mutations = {
     'SET_USERS'(state, user) {
         state.userAuth = user;
     },
-    'LOGOUT'(state) {
-        state.isLoggedIn = false;
-        state.credential = null
-        state.userAuth = null
-        state.stocks = null
-        state.funds = 0
-        localStorage.clear();
+    'RESET_AUTH'(state) {
+        Object.assign(state, getDefaultState())
     }
 }
 
@@ -33,7 +33,10 @@ const actions = {
         commit('SET_USERS', credential)
     },
     logOut({ commit }) {
-        commit('LOGOUT');
+        commit('RESET_AUTH');
+    },
+    resetAuth({ commit }) {
+        commit('RESET_AUTH')
     }
 }
 

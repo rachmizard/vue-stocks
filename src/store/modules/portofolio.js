@@ -1,7 +1,11 @@
-const state = {
-    funds: 0,
-    stocks: []
+const getDefaultState = () => {
+    return {
+        funds: 0,
+        stocks: []
+    }
 }
+
+const state = getDefaultState();
 
 const mutations = {
     'BUY_STOCK'(state, { stockId, quantity, stockPrice }) {
@@ -28,12 +32,18 @@ const mutations = {
     'SET_PORTOFOLIO'(state, portofolio) {
         state.funds = portofolio.funds
         state.stocks = portofolio.stockPortofolio ? portofolio.stockPortofolio : [];
+    },
+    'RESET_PORTOFOLIO'(state) {
+        Object.assign(state, getDefaultState())
     }
 }
 
 const actions = {
     sellStock({ commit }, order) {
         commit('SELL_STOCK', order);
+    },
+    resetPortofolio({ commit }) {
+        commit('RESET_PORTOFOLIO');
     }
 }
 
