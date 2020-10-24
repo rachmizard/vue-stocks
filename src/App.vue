@@ -3,7 +3,7 @@
     <appHeader />
     <div class="container-md">
       <div class="row">
-        <div class="col-md-12 mt-3">
+        <div class="col-md-12 mt-5">
           <transition name="slide">
             <router-view />
           </transition>
@@ -14,14 +14,21 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Header from "./components/Header.vue";
 
 export default {
   components: {
     appHeader: Header,
   },
+  methods: {
+    ...mapActions(['initStocks', 'randomizeStocks'])
+  },
   created() {
-    this.$store.dispatch("initStocks");
+    this.initStocks()
+    setInterval(() => {
+      this.randomizeStocks()
+    }, 8000);
   },
 };
 </script>

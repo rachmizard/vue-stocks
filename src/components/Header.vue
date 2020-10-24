@@ -84,10 +84,10 @@ export default {
         stockPortofolio: this.$store.getters.stockPortofolio,
         stocks: this.$store.getters.stocks
       }
-      this.$http.put('data.json', data);
+      this.$http.put('data.json', data).then(() => alert('Successfully saved!'));
     },
     loadData() {
-      this.fetchData();
+      this.fetchData().then(data => console.log(data));
     }
   }
 };
